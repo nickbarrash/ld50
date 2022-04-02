@@ -100,7 +100,7 @@ public class Scorekeeper : Singleton<Scorekeeper>
         }
 
         if (scoreChanged) {
-            labelComboScore.text = ComboScore.ToString();
+            labelComboScore.text = ComboValue.ToString();
             labelComboCount.text = $"x{ComboCount}";
             labelScore.text = Score.ToString();
             labelDecrementScore.text = ((float)(DecrementPointsPerTick * Simulation.TICKS_SECOND) / (float) DECREMENT_POINTS_PER_SCORE).ToString("R2") + "/s";
