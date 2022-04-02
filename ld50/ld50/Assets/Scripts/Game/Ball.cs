@@ -7,9 +7,9 @@ public class Ball : PausableRigidbody
     const int STUCK_TICKS = 100; //3 secs
     const float STUCK_DISTANCE = 0.25f;
     const float STUCK_THRUST_FACTOR = 2.5f;
+    const float VELO_DRAW_LENGTH = 0.5f;
 
     private LineRenderer thrustDrawer;
-    private Vector2 thrust;
 
     private Vector3 stuckPosition;
     private int stuckTick;
@@ -34,7 +34,7 @@ public class Ball : PausableRigidbody
 
         var waypoint = Waypoints.Instance.Waypoint;
         if (waypoint == null) {
-            thrust = Vector2.zero;
+            //veloNormal = Vector2.zero;
             return;
         }
 
@@ -52,7 +52,7 @@ public class Ball : PausableRigidbody
             // normal thrust
             var thrustMiss = Vector2.Dot(thrustOrthognal, rb.velocity.normalized) * thrustOrthognal;
 
-            thrust = (thrustNormal - thrustMiss).normalized * Waypoints.Instance.Thrust;
+            var thrust = (thrustNormal - thrustMiss).normalized * Waypoints.Instance.Thrust;
         //}
 
         rb.AddForce(thrust);
@@ -60,6 +60,12 @@ public class Ball : PausableRigidbody
 
     public void SetThrust() {
         thrustDrawer.SetPosition(0, transform.position);
-        thrustDrawer.SetPosition(1, transform.position + (Vector3)thrust.normalized);
+
+        var velo = Paused ? StoredVelocity : rb.velocity;
+        if (velo.magnitude > 1)
+            velo.Normalize();
+
+        //var velo = rb.velocity.magnitude > 1 ? rb.velocity.normalized : rb.velocity;
+        thrustDrawer.SetPosition(1, transform.position + ((Vector3)velo * VELO_DRAW_LENGTH));
     }
 }

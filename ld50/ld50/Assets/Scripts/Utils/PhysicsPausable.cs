@@ -34,6 +34,8 @@ public abstract class PausableRigidbody : Pausable {
     protected float rbRotation;
     protected float rbAngularVelocity;
 
+    public Vector2 StoredVelocity => rbVelocity;
+
     protected virtual void Start() {
         rb = GetComponent<Rigidbody2D>();
     }

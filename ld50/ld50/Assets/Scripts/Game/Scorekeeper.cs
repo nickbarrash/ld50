@@ -6,16 +6,16 @@ using UnityEngine.UI;
 
 public class Scorekeeper : Singleton<Scorekeeper>
 {
-    const int INITIAL_SCORE = 20;
+    const int INITIAL_SCORE = 50;
     const int COMBO_FALLOFF_TICKS = Simulation.TICKS_SECOND * 5;
     
     const int INITIAL_DECREMENT_POINTS = 20;
-    const int DECREMENT_POINTS_PER_SCORE = 1000;
+    const int DECREMENT_POINTS_PER_SCORE = 250;
 
     const int DECREMENT_RATE_PER_WAYPOINT = 10;
 
     const int DECREMENT_TIME_TICKS = 500;
-    const int DECREMENT_TIME_RATE = 5;
+    const int DECREMENT_TIME_RATE = 10;
 
     // Score variables
     private int settledScoreInt;
