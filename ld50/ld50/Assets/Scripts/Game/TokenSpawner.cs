@@ -32,6 +32,9 @@ public class TokenSpawner : MonoBehaviour
     }
 
     private void FixedUpdate() {
+        if (!Simulation.Instance.Simulating)
+            return;
+
         var loopedTick = (Simulation.Instance.Ticks + loopOffset) % loopAfterTicks;
         if (loopedTick == 0)
             spawnIndex = 0;

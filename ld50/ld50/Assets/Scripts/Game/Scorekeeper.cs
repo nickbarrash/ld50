@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Scorekeeper : Singleton<Scorekeeper>
 {
     const int INITIAL_SCORE = 100;
-    const int COMBO_FALLOFF_TICKS = Simulation.TICKS_SECOND * 7;
+    const int COMBO_FALLOFF_TICKS = Simulation.TICKS_SECOND * 5;
     const int DECREMENT_POINTS_PER_SCORE = 50;
 
     // Score variables
@@ -93,22 +93,19 @@ public class Scorekeeper : Singleton<Scorekeeper>
     }
 
     private void FixedUpdate() {
-        decrementPoints += decrementPointsPerTick;
-        if (decrementPoints >= DECREMENT_POINTS_PER_SCORE) {
-            var lostPoints = decrementPoints / DECREMENT_POINTS_PER_SCORE;
-            SettledScore -= lostPoints;
-            decrementPoints -= lostPoints * DECREMENT_POINTS_PER_SCORE;
-        }
+        if (Simulation.Instance.Simulating) {
+            decrementPoints += decrementPointsPerTick;
+            if (decrementPoints >= DECREMENT_POINTS_PER_SCORE) {
+                var lostPoints = decrementPoints / DECREMENT_POINTS_PER_SCORE;
+                SettledScore -= lostPoints;
+                decrementPoints -= lostPoints * DECREMENT_POINTS_PER_SCORE;
+            }
 
-        while (decrementPoints >= DECREMENT_POINTS_PER_SCORE) {
-            SettledScore--;
-            decrementPoints -= DECREMENT_POINTS_PER_SCORE;
-        }
-
-        if (ComboActive) {
-            activeComboTicks -= ComboCount;
-            if (activeComboTicks <= 0)
-                SettleCombo();
+            if (ComboActive) {
+                activeComboTicks -= ComboCount;
+                if (activeComboTicks <= 0)
+                    SettleCombo();
+            }
         }
     }
 

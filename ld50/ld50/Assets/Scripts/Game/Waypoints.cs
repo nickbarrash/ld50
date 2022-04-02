@@ -7,7 +7,7 @@ public class Waypoints : Singleton<Waypoints>
     public GameObject waypointPrefab;
 
     private int activeWaypoint = 0;
-    public List<Waypoint> waypoints = new List<Waypoint>();
+    private List<Waypoint> waypoints = new List<Waypoint>();
 
     private void Start() {
         foreach (var waypoint in waypoints) {

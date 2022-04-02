@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ball : MonoBehaviour
+public class Ball : PausableRigidbody
 {
-    private Rigidbody2D rb;
     private LineRenderer thrustDrawer;
     private Vector2 thrust;
 
-    private void Start() {
-        rb = GetComponent<Rigidbody2D>();
+    protected override void Start() {
+        base.Start();    
+
         thrustDrawer = GetComponent<LineRenderer>();
     }
 
@@ -17,7 +17,12 @@ public class Ball : MonoBehaviour
         SetThrust();
     }
 
-    private void FixedUpdate() {
+    protected override void FixedUpdate() {
+        base.FixedUpdate();
+
+        if (Paused)
+            return;
+
         var waypoint = Waypoints.Instance.Waypoint;
         if (waypoint == null) {
             thrust = Vector2.zero;
