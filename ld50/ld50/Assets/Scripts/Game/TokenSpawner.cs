@@ -46,7 +46,9 @@ public class TokenSpawner : MonoBehaviour
     private void SpawnToken() {
         var tokenInfo = tokenSpawns[spawnIndex++];
 
-        GameObject newToken = Instantiate(tokenPrefab, Tokens.Instance.transform);
-        newToken.transform.position = transform.position;
+        GameObject newTokenGO = Instantiate(tokenPrefab, Tokens.Instance.transform);
+        newTokenGO.transform.position = transform.position;
+        var newToken = newTokenGO.GetComponent<Token>();
+        newToken.SetInfo(tokenInfo);
     }
 }
