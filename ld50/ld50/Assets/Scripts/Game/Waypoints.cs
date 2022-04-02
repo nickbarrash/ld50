@@ -36,6 +36,8 @@ public class Waypoints : Singleton<Waypoints>
             return;
         }
 
+        Scorekeeper.Instance.ReachWaypoint();
+
         currentWaypoint.Deactivate();
 
         activeWaypoint++;

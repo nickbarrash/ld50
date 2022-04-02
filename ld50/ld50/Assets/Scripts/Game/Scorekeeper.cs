@@ -6,15 +6,22 @@ using UnityEngine.UI;
 
 public class Scorekeeper : Singleton<Scorekeeper>
 {
-    const int INITIAL_SCORE = 100;
+    const int INITIAL_SCORE = 20;
     const int COMBO_FALLOFF_TICKS = Simulation.TICKS_SECOND * 5;
-    const int DECREMENT_POINTS_PER_SCORE = 50;
+    
+    const int INITIAL_DECREMENT_POINTS = 20;
+    const int DECREMENT_POINTS_PER_SCORE = 1000;
+
+    const int DECREMENT_RATE_PER_WAYPOINT = 10;
+
+    const int DECREMENT_TIME_TICKS = 500;
+    const int DECREMENT_TIME_RATE = 5;
 
     // Score variables
     private int settledScoreInt;
 
     private int decrementPoints = 0;
-    private int decrementPointsPerTick = 1;
+    private int decrementPointsPerTickInt = 20;
 
     private int activeComboScoreInt;
     private int activeComboCountInt;
@@ -23,6 +30,7 @@ public class Scorekeeper : Singleton<Scorekeeper>
 
     // GUI
     public TMP_Text labelScore;
+    public TMP_Text labelDecrementScore;
     public TMP_Text labelComboScore;
     public TMP_Text labelComboCount;
     public Image comboBar;
@@ -34,6 +42,14 @@ public class Scorekeeper : Singleton<Scorekeeper>
     public bool ComboActive  => ComboValue > 0;
 
     public int ComboScore => ComboValue * ComboCount;
+
+    private int DecrementPointsPerTick {
+        get => decrementPointsPerTickInt;
+        set {
+            decrementPointsPerTickInt = value;
+            scoreChanged = true;
+        }
+    }
 
     private int ComboCount {
         get => activeComboCountInt;
@@ -87,6 +103,7 @@ public class Scorekeeper : Singleton<Scorekeeper>
             labelComboScore.text = ComboScore.ToString();
             labelComboCount.text = $"x{ComboCount}";
             labelScore.text = Score.ToString();
+            labelDecrementScore.text = ((float)(DecrementPointsPerTick * Simulation.TICKS_SECOND) / (float) DECREMENT_POINTS_PER_SCORE).ToString("R2") + "/s";
 
             scoreChanged = false;
         }
@@ -94,7 +111,11 @@ public class Scorekeeper : Singleton<Scorekeeper>
 
     private void FixedUpdate() {
         if (Simulation.Instance.Simulating) {
-            decrementPoints += decrementPointsPerTick;
+            if (Simulation.Instance.Ticks % DECREMENT_TIME_TICKS == 0 && Simulation.Instance.Ticks > 0) {
+                DecrementPointsPerTick += DECREMENT_TIME_RATE;
+            }
+
+            decrementPoints += DecrementPointsPerTick;
             if (decrementPoints >= DECREMENT_POINTS_PER_SCORE) {
                 var lostPoints = decrementPoints / DECREMENT_POINTS_PER_SCORE;
                 SettledScore -= lostPoints;
@@ -107,6 +128,10 @@ public class Scorekeeper : Singleton<Scorekeeper>
                     SettleCombo();
             }
         }
+    }
+
+    public void ReachWaypoint() {
+        DecrementPointsPerTick += DECREMENT_RATE_PER_WAYPOINT;
     }
 
     public void ScoreToken(Token token) {
