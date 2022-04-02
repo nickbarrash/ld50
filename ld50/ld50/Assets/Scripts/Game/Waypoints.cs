@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Waypoints : Singleton<Waypoints>
 {
+    public GameObject waypointPrefab;
+
     private int activeWaypoint = 0;
     public List<Waypoint> waypoints = new List<Waypoint>();
 
@@ -39,5 +41,17 @@ public class Waypoints : Singleton<Waypoints>
         activeWaypoint++;
         
         Waypoint?.Activate();
+    }
+
+    public void AddWaypoint(Vector2 pos) {
+        GameObject newWaypointGO = Instantiate(waypointPrefab, transform);
+        newWaypointGO.transform.position = pos;
+        var newWaypoint = newWaypointGO.GetComponent<Waypoint>();
+
+        newWaypoint.Deactivate();
+        waypoints.Add(newWaypoint);
+
+        if (Waypoint?.gameObject?.activeSelf == false)
+            Waypoint.Activate();
     }
 }

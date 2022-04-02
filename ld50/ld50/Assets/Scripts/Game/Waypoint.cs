@@ -12,8 +12,7 @@ public class Waypoint : MonoBehaviour
         gameObject.SetActive(true);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
+    private void OnTriggerEnter2D(Collider2D other) {
         Waypoints.Instance.NextWaypoint();
     }
 }

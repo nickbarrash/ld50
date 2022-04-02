@@ -13,11 +13,12 @@ public class TokenSpawnInfo {
 public class TokenSpawner : MonoBehaviour
 {
     public GameObject tokenPrefab;
-    public GameObject Affordance;
+    public SpriteRenderer Affordance;
 
     private int spawnIndex = 0;
 
     public int loopAfterTicks;
+    public int loopOffset;
     public List<TokenSpawnInfo> tokenSpawns;
 
     private void Start() {
@@ -31,7 +32,7 @@ public class TokenSpawner : MonoBehaviour
     }
 
     private void FixedUpdate() {
-        var loopedTick = Simulation.Instance.Ticks % loopAfterTicks;
+        var loopedTick = (Simulation.Instance.Ticks + loopOffset) % loopAfterTicks;
         if (loopedTick == 0)
             spawnIndex = 0;
 
