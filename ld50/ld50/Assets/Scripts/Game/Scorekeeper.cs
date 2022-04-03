@@ -96,7 +96,9 @@ public class Scorekeeper : Singleton<Scorekeeper>
 
     public int Score => SettledScore + ComboScore;
 
-    private void Awake() {
+    protected override void Awake() {
+        base.Awake();
+
         comboBarRectTransform = comboBar.GetComponent<RectTransform>();
         comboAffordanceWidth = comboBarRectTransform.sizeDelta.x;
     }
