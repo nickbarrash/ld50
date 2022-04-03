@@ -10,6 +10,7 @@ public class Ball : PausableRigidbody
     const float VELO_DRAW_LENGTH = 0.5f;
 
     private LineRenderer thrustDrawer;
+    public GameObject thrustArrow;
 
     private Vector3 stuckPosition;
     private int stuckTick;
@@ -59,13 +60,20 @@ public class Ball : PausableRigidbody
     }
 
     public void SetThrust() {
-        thrustDrawer.SetPosition(0, transform.position);
-
         var velo = Paused ? StoredVelocity : rb.velocity;
         if (velo.magnitude > 1)
             velo.Normalize();
 
-        //var velo = rb.velocity.magnitude > 1 ? rb.velocity.normalized : rb.velocity;
-        thrustDrawer.SetPosition(1, transform.position + ((Vector3)velo * VELO_DRAW_LENGTH));
+        var magnitude = velo.magnitude;
+        thrustArrow.transform.localScale = new Vector3(magnitude, magnitude, 1);
+        thrustArrow.transform.rotation = Quaternion.identity;
+
+        var angle = Vector2.Angle(Vector2.left, velo);
+        angle = Vector2.Dot(velo, Vector2.down) < 0 ? 360 - angle : angle;
+        thrustArrow.transform.Rotate(Vector3.forward, angle);
+
+        // ------ Line drawer
+        //thrustDrawer.SetPosition(0, transform.position);
+        //thrustDrawer.SetPosition(1, transform.position + ((Vector3)velo * VELO_DRAW_LENGTH));
     }
 }
