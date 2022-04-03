@@ -11,7 +11,7 @@ public class Simulation : Singleton<Simulation>
 
     public int Ticks => simulationTicks;
 
-    public bool Simulating => Waypoints.Instance.Waypoint != null || simulationTicks == 0;
+    public bool Simulating => Waypoints.Instance.Waypoint != null;
 
     private void FixedUpdate() {
         if (Simulating)

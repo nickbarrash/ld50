@@ -5,16 +5,12 @@ using UnityEngine;
 public class Wall : MonoBehaviour
 {
     SpriteRenderer spriteRenderer;
-    Collider2D collider;
+    protected Collider2D collider;
     private int passableTick = 0;
 
-    private void Awake() {
+    protected virtual void Awake() {
         spriteRenderer = GetComponent<SpriteRenderer>();
         collider = GetComponent<Collider2D>();
-    }
-
-    private void FixedUpdate() {
-        //if (Simulation.Instance.Ticks)
     }
 
     private void OnTriggerExit2D(Collider2D collision) {

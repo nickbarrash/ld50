@@ -6,11 +6,11 @@ using UnityEngine.UI;
 
 public class Scorekeeper : Singleton<Scorekeeper>
 {
-    const int INITIAL_SCORE = 50;
-    const int COMBO_FALLOFF_TICKS = Simulation.TICKS_SECOND * 5;
+    const int INITIAL_SCORE = 100;
+    const float COMBO_FALLOFF_TICKS = Simulation.TICKS_SECOND * 6;
     
     const int INITIAL_DECREMENT_POINTS = 20;
-    const int DECREMENT_POINTS_PER_SCORE = 250;
+    const int DECREMENT_POINTS_PER_SCORE = 500;
 
     const int DECREMENT_RATE_PER_WAYPOINT = 10;
 
@@ -25,7 +25,7 @@ public class Scorekeeper : Singleton<Scorekeeper>
 
     private int activeComboScoreInt;
     private int activeComboCountInt;
-    private int activeComboTicks;
+    private float activeComboTicks;
     private bool scoreChanged = false;
 
     // GUI
@@ -56,6 +56,25 @@ public class Scorekeeper : Singleton<Scorekeeper>
         set {
             activeComboCountInt = value;
             scoreChanged = true;   
+        }
+    }
+
+    private float ComboTimeIncrement {
+        get {
+            var count = ComboCount;
+            if (count <= 3)
+                return count;
+
+            var increment = 3f;
+            count -= 3;
+
+            if (count <= 3)
+                return increment + count * 0.5f;
+
+            increment += 3 * 0.5f;
+            count -= 3;
+
+            return increment + count * 0.25f;
         }
     }
 
@@ -123,7 +142,7 @@ public class Scorekeeper : Singleton<Scorekeeper>
             }
 
             if (ComboActive) {
-                activeComboTicks -= ComboCount;
+                activeComboTicks -= ComboTimeIncrement;
                 if (activeComboTicks <= 0)
                     SettleCombo();
             }

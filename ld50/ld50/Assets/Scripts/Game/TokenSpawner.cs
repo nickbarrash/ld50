@@ -7,7 +7,7 @@ using UnityEngine;
 public class TokenSpawnInfo {
     public int value;
     public int spawnTick;
-    public Vector2 impulseVector;
+    //public Vector2 impulseVector;
 }
 
 public class TokenSpawner : MonoBehaviour
@@ -29,10 +29,13 @@ public class TokenSpawner : MonoBehaviour
 
         if (tokenSpawns == null || tokenSpawns.Count == 0)
             Debug.LogWarning("Token spawner empty token spawn list");
+
+        if (loopOffset == 0 && tokenSpawns[0].spawnTick == 0)
+            SpawnToken();
     }
 
     private void FixedUpdate() {
-        if (!Simulation.Instance.Simulating)
+        if (!Simulation.Instance.Simulating || Simulation.Instance.Ticks == 0)
             return;
 
         var loopedTick = (Simulation.Instance.Ticks + loopOffset) % loopAfterTicks;

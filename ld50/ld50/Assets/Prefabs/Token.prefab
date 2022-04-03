@@ -233,6 +233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   value: 0
+  absorbed: 0
   labelValue: {fileID: 7637673802857452734}
 --- !u!58 &7637673802879757485
 CircleCollider2D:

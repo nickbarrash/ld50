@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 2334269128980518474}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2, y: 1, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -47,6 +47,7 @@ MonoBehaviour:
   tokenPrefab: {fileID: 7637673802879757488, guid: 658a69438fb611141b44daf19d02a90d, type: 3}
   Affordance: {fileID: 7059541198988353224}
   loopAfterTicks: 500
+  loopOffset: 0
   tokenSpawns: []
 --- !u!212 &7059541198988353224
 SpriteRenderer:
