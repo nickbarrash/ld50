@@ -21,14 +21,15 @@ public class GameOverMenu : Singleton<GameOverMenu>
     private bool scoreHighScore = false;
     private bool timeHighScore = false;
 
+    public float LowHighScore => leaderboardScores?.Scores?.Last() != null ? leaderboardScores.Scores.Last().score : -1;
+    public float LowTimeScore => leaderboardTime?.Scores?.Last() != null ? leaderboardTime.Scores.Last().score : -1;
+
     public void SetupPanel() {
         labelScore.text = Scorekeeper.Instance.AccumulatedScore.ToString();
-        var scores = leaderboardScores.Scores;
-        scoreHighScore = scores != null && (scores.Count == 0 || Scorekeeper.Instance.AccumulatedScore > scores.Last().score);
+        scoreHighScore = leaderboardScores.IsHighScore(Scorekeeper.Instance.AccumulatedScore);
 
         labelTime.text = LeaderboardTime.FormatSecondsTime(Simulation.Instance.Seconds);
-        var times = leaderboardTime.Scores;
-        timeHighScore = times != null && (times.Count == 0 || Simulation.Instance.Seconds > scores.Last().score);
+        timeHighScore = leaderboardTime.IsHighScore(Simulation.Instance.Seconds);
 
         bool showHighScore = scoreHighScore || timeHighScore;
 

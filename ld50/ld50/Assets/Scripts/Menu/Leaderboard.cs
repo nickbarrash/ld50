@@ -23,6 +23,16 @@ public class Leaderboard : MonoBehaviour
         FetchLeaderboard(names != null && scores != null);
     }
 
+    public bool IsHighScore(float score) {
+        if (Scores == null)
+            return false;
+
+        if (Scores.Count < SLOTS)
+            return true;
+
+        return score > Scores.Last().score;
+    }
+
     public void FetchLeaderboard(bool setUI)
     {
         try

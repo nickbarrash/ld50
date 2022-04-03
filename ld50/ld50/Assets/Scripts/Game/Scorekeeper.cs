@@ -22,7 +22,7 @@ public class Scorekeeper : Singleton<Scorekeeper>
     private int accumulatedScoreInt;
 
     private int decrementPoints = 0;
-    private int decrementPointsPerTickInt = 20;
+    private int decrementPointsPerTickInt = INITIAL_DECREMENT_POINTS;
 
     private int activeComboScoreInt;
     private int activeComboCountInt;
@@ -34,6 +34,8 @@ public class Scorekeeper : Singleton<Scorekeeper>
     public TMP_Text labelDecrementScore;
     public TMP_Text labelComboScore;
     public TMP_Text labelComboCount;
+    public TMP_Text labelAccumulatedScore;
+    public TMP_Text labelTime;
     public Image comboBar;
 
     private RectTransform comboBarRectTransform;
@@ -132,11 +134,18 @@ public class Scorekeeper : Singleton<Scorekeeper>
             );
         }
 
+        labelTime.text = LeaderboardTime.FormatSecondsTime(Simulation.Instance.Seconds);
+
         if (scoreChanged) {
             labelComboScore.text = ComboValue.ToString();
             labelComboCount.text = $"x{ComboCount}";
-            labelScore.text = Score.ToString();
-            labelDecrementScore.text = ((float)(DecrementPointsPerTick * Simulation.TICKS_SECOND) / (float) DECREMENT_POINTS_PER_SCORE).ToString("R2") + "/s";
+
+            var score = Score;
+            var sign = score < 0 ? "-" : "+";
+            labelScore.text = $"{sign}{Score}";
+
+            labelAccumulatedScore.text = $"{AccumulatedScore}";
+            labelDecrementScore.text = "-" + ((float)(DecrementPointsPerTick * Simulation.TICKS_SECOND) / (float) DECREMENT_POINTS_PER_SCORE).ToString("R2") + "/second";
 
             scoreChanged = false;
         }

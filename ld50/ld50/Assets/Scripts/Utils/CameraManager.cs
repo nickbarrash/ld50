@@ -7,9 +7,9 @@ public class CameraManager : MonoBehaviour
     Camera mainCam;
     
     const float widthRatio= 2000;
-    const float heightRatio = 1110;
+    const float heightRatio = 1020;
 
-    const float orthogHeight = 5;
+    const float orthogHeight = 5.5f;
     const float orthogWidth = widthRatio / heightRatio * orthogHeight;
 
     // Start is called before the first frame update

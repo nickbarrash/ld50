@@ -46,6 +46,8 @@ public class Waypoints : Singleton<Waypoints>
     }
 
     public void AddWaypoint(Vector2 pos) {
+        GameManager.Instance.startPanel.SetActive(false);
+
         GameObject newWaypointGO = Instantiate(waypointPrefab, transform);
         newWaypointGO.transform.position = pos;
         var newWaypoint = newWaypointGO.GetComponent<Waypoint>();

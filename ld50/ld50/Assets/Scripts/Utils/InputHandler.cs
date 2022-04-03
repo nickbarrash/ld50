@@ -7,7 +7,7 @@ public class InputHandler: Singleton<InputHandler>
     public Camera mainCam;
 
     private void Update() {
-        if (Input.GetMouseButtonDown(0)) {
+        if (Input.GetMouseButtonDown(0) && Waypoints.Instance.Waypoint == null) {
             Waypoints.Instance.AddWaypoint(MouseToWorldZeroed());
         }
     }
