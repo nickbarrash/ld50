@@ -44,7 +44,7 @@ public class Scorekeeper : Singleton<Scorekeeper>
     // Properties
     public bool ComboActive  => ComboValue > 0;
 
-    public bool GameOver => SettledScore < 0;
+    public bool GameOver => Score < 0;
 
     public int ComboScore => ComboValue * ComboCount;
 
@@ -152,8 +152,10 @@ public class Scorekeeper : Singleton<Scorekeeper>
     }
 
     private void FixedUpdate() {
-        if (GameOver)
+        if (GameOver) {
+            SettleCombo();
             GameManager.Instance.GameOver();
+        }
 
         if (Simulation.Instance.Simulating) {
             if (Simulation.Instance.Ticks % DECREMENT_TIME_TICKS == 0 && Simulation.Instance.Ticks > 0) {
