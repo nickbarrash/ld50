@@ -5,12 +5,12 @@ using UnityEngine;
 public class Wall : MonoBehaviour
 {
     SpriteRenderer spriteRenderer;
-    protected Collider2D collider;
+    protected Collider2D ballCollider;
     private int passableTick = 0;
 
     protected virtual void Awake() {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        collider = GetComponent<Collider2D>();
+        ballCollider = GetComponent<Collider2D>();
     }
 
     private void OnTriggerExit2D(Collider2D collision) {
@@ -26,7 +26,7 @@ public class Wall : MonoBehaviour
     }
 
     public void SetSolid(bool isSolid) {
-        collider.isTrigger = !isSolid;
+        ballCollider.isTrigger = !isSolid;
         spriteRenderer.color = isSolid ? Config.Instance.WALL_SOLID : Config.Instance.WALL_PASSABLE;
 
         if (!isSolid) {

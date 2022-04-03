@@ -10,6 +10,7 @@ public class Token : MonoBehaviour
     public int value;
     public bool absorbed;
     
+    public TokenSpawner spawner;
     public TMP_Text labelValue;
 
     private static float perturbAngleInt;
@@ -26,7 +27,7 @@ public class Token : MonoBehaviour
 
     private void SetValue(int value) {
         this.value = value;
-        labelValue.text = this.value.ToString();
+        labelValue.text = Extensions.ShortenedValue(this.value);
     }
 
     //private void OnTriggerStay2D(Collider2D collision) {

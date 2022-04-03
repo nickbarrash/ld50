@@ -10,12 +10,13 @@ public class Scorekeeper : Singleton<Scorekeeper>
     const float COMBO_FALLOFF_TICKS = Simulation.TICKS_SECOND * 6;
     
     const int INITIAL_DECREMENT_POINTS = 20;
-    const int DECREMENT_POINTS_PER_SCORE = 500;
+    const int DECREMENT_POINTS_PER_SCORE = 250;
 
     const int DECREMENT_RATE_PER_WAYPOINT = 10;
 
-    const int DECREMENT_TIME_TICKS = 500;
-    const int DECREMENT_TIME_RATE = 10;
+    public const int DECREMENT_TIME_TICKS = 500;
+    const int DECREMENT_TIME_RATE = 20;
+    const int DECREMENT_TIME_RATE_INCREASE_PER_MINUTE = 10;
 
     // Score variables
     private int settledScoreInt;
@@ -107,6 +108,8 @@ public class Scorekeeper : Singleton<Scorekeeper>
         }
     }
 
+    public int TicksUntilDecrementIncrease => DECREMENT_TIME_TICKS - Simulation.Instance.Ticks % DECREMENT_TIME_TICKS;
+
     public int Score => SettledScore + ComboScore;
 
     protected override void Awake() {
@@ -159,7 +162,7 @@ public class Scorekeeper : Singleton<Scorekeeper>
 
         if (Simulation.Instance.Simulating) {
             if (Simulation.Instance.Ticks % DECREMENT_TIME_TICKS == 0 && Simulation.Instance.Ticks > 0) {
-                DecrementPointsPerTick += DECREMENT_TIME_RATE;
+                DecrementPointsPerTick += DECREMENT_TIME_RATE + (((int)Simulation.Instance.Seconds / 60) * DECREMENT_TIME_RATE_INCREASE_PER_MINUTE);
             }
 
             decrementPoints += DecrementPointsPerTick;

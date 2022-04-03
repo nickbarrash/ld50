@@ -26,4 +26,12 @@ public static class Extensions
     public static long EpochSeconds() {
         return DateTimeOffset.Now.ToUnixTimeMilliseconds();
     }
+
+    public static string ShortenedValue(int value) {
+        if (value > 1000) {
+            return value / 1000 + "k";
+        }
+
+        return value.ToString();
+    }
 }

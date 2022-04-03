@@ -21,6 +21,8 @@ public class TokenSpawner : MonoBehaviour
     public int loopOffset;
     public List<TokenSpawnInfo> tokenSpawns;
 
+    public float SpawnProgress => (float) ((Simulation.Instance.Ticks + loopOffset) % loopAfterTicks) / (float)loopAfterTicks;
+
     private void Start() {
         Destroy(Affordance);
 
@@ -57,5 +59,6 @@ public class TokenSpawner : MonoBehaviour
         newTokenGO.transform.position = transform.position;
         var newToken = newTokenGO.GetComponent<Token>();
         newToken.SetInfo(tokenInfo);
+        newToken.spawner = this;
     }
 }

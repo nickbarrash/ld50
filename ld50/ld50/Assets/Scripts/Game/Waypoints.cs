@@ -26,7 +26,7 @@ public class Waypoints : Singleton<Waypoints>
         }
     }
 
-    public float Thrust => 2f;
+    public float Thrust => 2.5f;
 
     public void NextWaypoint()
     {
