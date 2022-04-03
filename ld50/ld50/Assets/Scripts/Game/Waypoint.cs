@@ -12,7 +12,11 @@ public class Waypoint : MonoBehaviour
         gameObject.SetActive(true);
     }
 
+    private void Update() {
+        transform.position = InputHandler.Instance.MouseToWorldZeroed();
+    }
+
     private void OnTriggerEnter2D(Collider2D other) {
-        Waypoints.Instance.NextWaypoint();
+        //Waypoints.Instance.NextWaypoint();
     }
 }
