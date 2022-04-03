@@ -31,7 +31,7 @@ public class LeaderboardResponse
 }
 
 
-public class Leaderboard : MonoBehaviour
+public class TestLeaderboard : MonoBehaviour
 {
     const string URL = "https://olhaytwbf1.execute-api.us-east-2.amazonaws.com/leaderboard/ld50";
 

@@ -11,19 +11,12 @@ public class Simulation : Singleton<Simulation>
 
     public int Ticks => simulationTicks;
 
-    public bool Simulating => Waypoints.Instance.Waypoint != null;
+    public bool Simulating => Waypoints.Instance.Waypoint != null && !Scorekeeper.Instance.GameOver;
+
+    public float Seconds => simulationTicks / TICKS_SECOND;
 
     private void FixedUpdate() {
         if (Simulating)
             simulationTicks++;
-
-        //if (Waypoints.Instance.Waypoint == null) {
-        //    //Physics.autoSimulation = false;
-        //    //Time.timeScale = 0;
-        //} else {
-        //    //Physics.autoSimulation = true;
-        //    //Time.timeScale = 1;
-        //    simulationTicks++;
-        //}
     }
 }

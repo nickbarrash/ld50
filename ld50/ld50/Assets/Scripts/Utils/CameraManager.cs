@@ -16,7 +16,16 @@ public class CameraManager : MonoBehaviour
     void Awake()
     {
         mainCam = Camera.main;
+        FixScreenSize();
+    }
 
+    private void Update() {
+        if (Time.frameCount % 100 == 0) {
+            FixScreenSize();
+        }
+    }
+
+    private void FixScreenSize() {
         mainCam.orthographicSize = ((float)Screen.height / Screen.width) / (orthogHeight / orthogWidth) * orthogHeight;
     }
 }

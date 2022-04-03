@@ -19,6 +19,7 @@ public class Scorekeeper : Singleton<Scorekeeper>
 
     // Score variables
     private int settledScoreInt;
+    private int accumulatedScoreInt;
 
     private int decrementPoints = 0;
     private int decrementPointsPerTickInt = 20;
@@ -40,6 +41,8 @@ public class Scorekeeper : Singleton<Scorekeeper>
 
     // Properties
     public bool ComboActive  => ComboValue > 0;
+
+    public bool GameOver => SettledScore < 0;
 
     public int ComboScore => ComboValue * ComboCount;
 
@@ -94,6 +97,14 @@ public class Scorekeeper : Singleton<Scorekeeper>
         }
     }
 
+    public int AccumulatedScore {
+        get => accumulatedScoreInt;
+        set {
+            accumulatedScoreInt = value;
+            scoreChanged = true;
+        }
+    }
+
     public int Score => SettledScore + ComboScore;
 
     protected override void Awake() {
@@ -105,6 +116,7 @@ public class Scorekeeper : Singleton<Scorekeeper>
 
     private void Start() {
         SettledScore = INITIAL_SCORE;
+        AccumulatedScore = INITIAL_SCORE;
     }
 
     private void Update() {
@@ -131,6 +143,9 @@ public class Scorekeeper : Singleton<Scorekeeper>
     }
 
     private void FixedUpdate() {
+        if (GameOver)
+            GameManager.Instance.GameOver();
+
         if (Simulation.Instance.Simulating) {
             if (Simulation.Instance.Ticks % DECREMENT_TIME_TICKS == 0 && Simulation.Instance.Ticks > 0) {
                 DecrementPointsPerTick += DECREMENT_TIME_RATE;
@@ -163,6 +178,7 @@ public class Scorekeeper : Singleton<Scorekeeper>
 
     public void SettleCombo() {
         SettledScore += ComboScore;
+        AccumulatedScore += ComboScore;
 
         ComboValue = 0;
         ComboCount = 0;
