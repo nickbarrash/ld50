@@ -18,7 +18,5 @@ public class CameraManager : MonoBehaviour
         mainCam = Camera.main;
 
         mainCam.orthographicSize = ((float)Screen.height / Screen.width) / (orthogHeight / orthogWidth) * orthogHeight;
-
-        Debug.Log($"{mainCam.orthographicSize}");
     }
 }
