@@ -21,6 +21,7 @@ public class SoundManager : Singleton<SoundManager>
     }
 
     public void Play(string sound, float pitch = 1) {
+        Debug.Log(sound);
         foreach (var s in sounds) {
             if (s.name == sound) {
                 s.source.pitch = pitch;

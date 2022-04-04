@@ -154,9 +154,11 @@ public class Scorekeeper : Singleton<Scorekeeper>
         }
     }
 
+    bool everGameOver = false;
+
     private void FixedUpdate() {
         if (GameOver) {
-            SettleCombo();
+            SettleCombo(false);
             GameManager.Instance.GameOver();
         }
 
@@ -192,13 +194,14 @@ public class Scorekeeper : Singleton<Scorekeeper>
         SoundManager.Instance.Play(SoundManager.TOKEN, 0.9f + 0.1f * ComboCount);
     }
 
-    public void SettleCombo() {
+    public void SettleCombo(bool playSound = true) {
         SettledScore += ComboScore;
         AccumulatedScore += ComboScore;
 
         ComboValue = 0;
         ComboCount = 0;
 
-        SoundManager.Instance.Play(SoundManager.COMBO);
+        if (playSound)
+            SoundManager.Instance.Play(SoundManager.COMBO);
     }
 }
