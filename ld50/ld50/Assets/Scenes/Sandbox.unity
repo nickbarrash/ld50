@@ -17457,7 +17457,7 @@ MonoBehaviour:
   sounds:
   - name: collect token
     clip: {fileID: 8300000, guid: 05b80f10e056ee3419f8b3eab930728d, type: 3}
-    volume: 1
+    volume: 0.448
     pitch: 1
     source: {fileID: 0}
   - name: decrement increase
@@ -17467,7 +17467,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: combo finish
     clip: {fileID: 8300000, guid: 5f148b2029236044fb1e623806596698, type: 3}
-    volume: 1
+    volume: 0.445
     pitch: 1
     source: {fileID: 0}
 --- !u!1001 &1865416974
