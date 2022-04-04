@@ -14,7 +14,6 @@ public class GameManager : Singleton<GameManager>
     public TMP_Text labelHighScoreTitle;
     public TMP_Text labelScoreTitle;
 
-
     private void Start() {
         startPanel.SetActive(true);
         gameOverPanel.SetActive(false);

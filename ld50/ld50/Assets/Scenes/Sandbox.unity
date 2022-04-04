@@ -14800,6 +14800,7 @@ GameObject:
   - component: {fileID: 1544239597}
   - component: {fileID: 1544239596}
   - component: {fileID: 1544239599}
+  - component: {fileID: 1544239600}
   m_Layer: 9
   m_Name: Ball
   m_TagString: Untagged
@@ -15021,6 +15022,19 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!114 &1544239600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1544239593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa3d51d1a7e37b64bb85d9f2b5ebeb6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rollingSound: {fileID: 8300000, guid: acbc36ab21017fa40b5b88a30d7c1714, type: 3}
 --- !u!1001 &1545160932
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17214,6 +17228,7 @@ GameObject:
   - component: {fileID: 1861784396}
   - component: {fileID: 1861784395}
   - component: {fileID: 1861784397}
+  - component: {fileID: 1861784398}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -17360,6 +17375,34 @@ MonoBehaviour:
   buttonHome: {fileID: 391965663}
   leaderboardTime: {fileID: 1861784395}
   leaderboardScores: {fileID: 1861784396}
+--- !u!114 &1861784398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1861784388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11cbfece76bf93a4a86503c5c037953b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: collect token
+    clip: {fileID: 8300000, guid: 05b80f10e056ee3419f8b3eab930728d, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: decrement increase
+    clip: {fileID: 8300000, guid: b3eeb46afcf397642a7ff4fdd443221e, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: combo finish
+    clip: {fileID: 8300000, guid: 5f148b2029236044fb1e623806596698, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
 --- !u!1001 &1865416974
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -163,6 +163,7 @@ public class Scorekeeper : Singleton<Scorekeeper>
         if (Simulation.Instance.Simulating) {
             if (Simulation.Instance.Ticks % DECREMENT_TIME_TICKS == 0 && Simulation.Instance.Ticks > 0) {
                 DecrementPointsPerTick += DECREMENT_TIME_RATE + (((int)Simulation.Instance.Seconds / 60) * DECREMENT_TIME_RATE_INCREASE_PER_MINUTE);
+                SoundManager.Instance.Play(SoundManager.DECREMENT);
             }
 
             decrementPoints += DecrementPointsPerTick;
@@ -188,6 +189,7 @@ public class Scorekeeper : Singleton<Scorekeeper>
         ComboValue += token.value;
         ComboCount++;
         activeComboTicks = COMBO_FALLOFF_TICKS;
+        SoundManager.Instance.Play(SoundManager.TOKEN, 0.9f + 0.1f * ComboCount);
     }
 
     public void SettleCombo() {
@@ -196,5 +198,7 @@ public class Scorekeeper : Singleton<Scorekeeper>
 
         ComboValue = 0;
         ComboCount = 0;
+
+        SoundManager.Instance.Play(SoundManager.COMBO);
     }
 }
